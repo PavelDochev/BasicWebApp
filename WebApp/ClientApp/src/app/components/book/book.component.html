@@ -5,22 +5,24 @@
   <hr />
   <a href="/create">Create Book</a>
   <hr />
-  <table class="table">
-    <thead>
+  <table class="table" *ngIf="books">
+    <thead> 
       <tr>
         <th>Title</th>
+        <th>Book type</th>
         <th>Author</th>
         <th colspan="2">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let book of books">
+        <input [(ngModel)]="searchText" placeholder="filter booktypes">
+      <tr *ngFor="let book of books | filter : searchText">
         <td>{{ book.Title }}</td>
+        <td>{{ book.BookType }}</td>
         <td>{{ book.Author }}</td>
-        <td><a href="/details/{{book.Id}}">Details</a></td>
-        <td><a href="/edit/{{book.Id}}">Edit</a></td>
+        <td><a href="/details/{{book.BookID}}">Details</a></td>
+        <td><a href="/edit/{{book.BookID}}">Edit</a></td>
       </tr>
     </tbody>
   </table>
-
 </div>

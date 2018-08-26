@@ -2,7 +2,7 @@
   <h1>Edit Book</h1>
   <div class="row">
     <div class="col-md-6">
-      <form (ngSubmit)="updateBook(book.Id)" #bookForm="ngForm">
+      <form (ngSubmit)="updateBook(book.BookID)" #bookForm="ngForm">
         <div class="form-group">
           <label for="name">Title</label>
           <input type="text" class="form-control" [(ngModel)]="book.Title" name="Title" required>
@@ -27,7 +27,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <button class="btn btn-danger" type="button" (click)="deleteBook(book.Id)">Delete</button>
+      <button class="btn btn-danger" type="button" (click)="deleteBook(book.BookID)">Delete</button>
     </div>
   </div>
 </div>

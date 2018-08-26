@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BookService } from '../../services/book.service';
+import { Book } from '../../models/book';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book',
@@ -8,11 +9,13 @@ import { BookService } from '../../services/book.service';
   styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-  books: any;
+  books: Book[];
   constructor(private bookService:BookService) { }
 
   ngOnInit() {
-    this.books = this.bookService.getBooks();
+    this.bookService.getBooks().subscribe(data=>{
+      this.books = data as Book[];
+    });
   }
 
 }

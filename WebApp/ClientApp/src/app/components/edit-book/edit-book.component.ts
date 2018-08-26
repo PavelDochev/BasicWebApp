@@ -1,30 +1,35 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { BookService } from '../../services/book.service';
+import { ServerUtil } from '../../Utils/ServerUtil';
+import { Book } from '../../models/book';
 
 @Component({
   selector: 'app-edit-book',
   templateUrl: './edit-book.component.html',
   styleUrls: ['./edit-book.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 export class EditBookComponent implements OnInit {
-  book : any = {};
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
+  book : Book = new Book;
+  constructor(private bookService:BookService,
+      private http:HttpClient,
+      private router: Router,
+      private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getBookDetail(this.route.snapshot.params['id']);
+    this.getBookDetail(this.route.snapshot.params['BookID']);
   }
 
   getBookDetail(id) {
-    this.http.get('/api/books/' + id).subscribe(data => {
+    this.bookService.getBook(id).subscribe(data => {
       this.book = data;
     });
   }
   updateBook(id) {
-    this.http.put('/api/books/' + id, this.book)
+    this.http.put(ServerUtil.SERVER_URL()+'api/books/' + id, this.book)
       .subscribe(res => {
-        let id = res['Id'];
+        let id = res['BookID'];
         this.router.navigate(['/details', id]);
       }, (err) => {
         console.log(err);
@@ -32,12 +37,7 @@ export class EditBookComponent implements OnInit {
       );
   }
   deleteBook(id) {
-    this.http.delete('/api/books/' + id)
-      .subscribe(res => {
-        this.router.navigate(['/books']);
-      }, (err) => {
-        console.log(err);
-      }
-      );
+    this.bookService.deleteBook(id).subscribe();
+    this.router.navigate(['/books']);
   }
 }

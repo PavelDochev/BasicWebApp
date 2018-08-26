@@ -2,7 +2,7 @@
   <h1>Add New Book</h1>
   <div class="row">
     <div class="col-md-6">
-      <form (ngSubmit)="createBook()" #bookForm="ngForm">
+      <form (ngSubmit)="createBook(bookForm.value)" #bookForm="ngForm">
         <div class="form-group">
           <label for="name">Title</label>
           <input type="text" class="form-control" [(ngModel)]="book.Title" name="Title" required>
@@ -19,6 +19,9 @@
           <label for="name">Published Year</label>
           <input type="datetime" class="form-control" [(ngModel)]="book.PublishedOn" name="PublishedOn" required>
         </div>
+        <select [(ngModel)]="book.BookType" name="BookType">
+            <option *ngFor="let bt of bookTypes" [ngValue]="bt.Name">{{bt.Name}}</option>
+          </select>
         <div class="form-group">
           <button type="submit" class="btn btn-success" [disabled]="!bookForm.form.valid">Save</button>
         </div>

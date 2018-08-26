@@ -3,6 +3,9 @@
   <dl class="list">
     <dt>Description</dt>
     <dd>{{ book.Description }}</dd>
+    <dd>{{ book.BookID }}</dd>
+    <dt>BookType</dt>
+    <dd>{{ book.BookType }}</dd>
     <dt>Author</dt>
     <dd>{{ book.Author }}</dd>
     <dt>PublishedOn</dt>
@@ -10,8 +13,10 @@
   </dl>
   <div class="row">
     <div class="col-md-12">
-      <a [routerLink]="['/edit', book.Id]" class="btn btn-success">Edit</a>
-      <button class="btn btn-danger" type="button" (click)="deleteBook(book.Id)">Delete</button>
+      <div *ngIf=[book] > 
+        <a [routerLink]="['/edit',book.BookID]" class="btn btn-success">Edit</a>
+        <button class="btn btn-danger" type="button" (click)="deleteBook(book.BookID)">Delete</button>
+      </div>
     </div>
   </div>
 </div>

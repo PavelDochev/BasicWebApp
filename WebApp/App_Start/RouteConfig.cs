@@ -14,7 +14,7 @@ namespace WebApp
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Angular Routing",
+                name: "spa-fallback",
                 url: "{*url}",
                 defaults: new { controller = "Home", action = "Index" }
             );
